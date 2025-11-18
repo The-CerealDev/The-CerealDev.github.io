@@ -1,0 +1,14 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.app{
+    display: flex;
+    
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.title{
+    width: 100%;
+    text-align: center;
+}
+
