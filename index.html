@@ -3,26 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Santa Algo</title>
+    <title>Secret Santa</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    <div class="app">
-        
-        <div class="title">
-            <h1>Secret Santa Algo 🎅🎅</h1>
-        </div>
-        <div class="nameInp">
-                <h2>Names: </h2>
-            <form action="" id="inputForm">
-                <input type="text" name="Names" id="nameInp" placeholder="Name...">
-                <input type="submit" value="Submit" class="submitBtn" id="submitBtn" >
-                
-            </form>
-            <div class="nameList" id="nameList">
+    <script src="index.js"></script>
+    <div class="container">
+        <h1>🎅 Secret Santa</h1>
+        <p class="subtitle">Add participants to start the gift exchange</p>
 
+        <div class="input-group">
+            <label for="participant-name">Participant Name</label>
+            <input type="text" id="participant-name" placeholder="Enter name...">
+        </div>
+
+        <button class="button button-primary" id="addParticipant">Add Participant</button>
+
+        <div class="participants-list">
+            <div class="empty-state">No participants yet. Add someone to get started!</div>
+            
+
+            <div class="participant-item">
+                <span class="participant-name">John Doe</span>
+                <button class="remove-btn">×</button>
             </div>
         </div>
-    </div>    
+
+        <button class="button button-secondary">Draw Names</button>
+    </div>
 </body>
 </html>

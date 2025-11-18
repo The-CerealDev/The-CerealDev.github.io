@@ -1,14 +1,24 @@
-let nameInp = document.getElementById('nameInp');
-let subBtn = document.getElementById('submitBtn');
-let form = document.getElementById('inputForm');
-let nameHolder = document.getElementById('nameList');
-
-function summit(event){
-    event.preventDefault();
-    console.log("sups");
-    let input = document.createTextNode("1");
-    nameHolder.appendChild(input);
-    form.style.backgroundColor="black";
+let nameInp = document.getElementById('participant-name');
+let submitBtn = document.getElementById('addParticipant');
+let arr = [];
+function addParticipant(){
+  console.log(nameInp.value);
+  person = nameInp.value;
+  document.createElement("p")
+  if (person === "print"){
+    console.log(arr);
+  }
+  else{
+    arr.push(person);
+  
+  }
+  
 }
-form.addEventListener("submit",summit);
-
+submitBtn.addEventListener("click", addParticipant);
+nameInp.addEventListener("keypress", (event)=>{
+ 
+  if (event.key === "Enter"){
+    // addParticipant();
+    submitBtn.click();
+  }
+})
