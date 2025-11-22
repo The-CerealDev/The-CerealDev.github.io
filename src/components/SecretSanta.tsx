@@ -5,13 +5,26 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Gift, Users, Shuffle, Eye, EyeOff, Trash2, Sparkles } from 'lucide-react';
 
+type AgeGroup = 'Adult' | 'Kid';
+
+interface Participant {
+  id: string;
+  name: string;
+  ageGroup: AgeGroup;
+}
+
+interface Pairing {
+  giver: string;
+  receiver: string;
+}
+
 const SecretSanta = () => {
   const [name, setName] = useState('');
-  const [ageGroup, setAgeGroup] = useState('Adult');
-  const [participants, setParticipants] = useState([]);
-  const [pairings, setPairings] = useState([]);
-  const [revealedFor, setRevealedFor] = useState(null);
-  const [screen, setScreen] = useState('setup');
+  const [ageGroup, setAgeGroup] = useState<AgeGroup>('Adult');
+  const [participants, setParticipants] = useState<Participant[]>([]);
+  const [pairings, setPairings] = useState<Pairing[]>([]);
+  const [revealedFor, setRevealedFor] = useState<string | null>(null);
+  const [screen, setScreen] = useState<'setup' | 'reveal'>('setup');
 
   const adults = participants.filter(p => p.ageGroup === 'Adult');
   const kids = participants.filter(p => p.ageGroup === 'Kid');
@@ -26,19 +39,19 @@ const SecretSanta = () => {
     }
   };
 
-  const removeParticipant = (id) => {
+  const removeParticipant = (id: string) => {
     setParticipants(participants.filter(p => p.id !== id));
   };
 
   // Circular pairing algorithm
-  const generateCircularPairings = (group) => {
+  const generateCircularPairings = (group: Participant[]): Pairing[] => {
     if (group.length < 2) return [];
     
     // Shuffle the group
     const shuffled = [...group].sort(() => Math.random() - 0.5);
     
     // Create circular pairings
-    const pairs = [];
+    const pairs: Pairing[] = [];
     for (let i = 0; i < shuffled.length; i++) {
       const nextIndex = (i + 1) % shuffled.length;
       pairs.push({
@@ -58,7 +71,7 @@ const SecretSanta = () => {
     setScreen('reveal');
   };
 
-  const revealMatch = (giverName) => {
+  const revealMatch = (giverName: string) => {
     setRevealedFor(giverName);
   };
 
@@ -75,7 +88,7 @@ const SecretSanta = () => {
 
   const canGenerate = adults.length >= 2 || kids.length >= 2;
 
-  const getReceiverForGiver = (giverName) => {
+  const getReceiverForGiver = (giverName: string): string | undefined => {
     return pairings.find(p => p.giver === giverName)?.receiver;
   };
 
@@ -177,7 +190,7 @@ const SecretSanta = () => {
                 onKeyDown={(e) => e.key === 'Enter' && addParticipant()}
                 className="flex-1"
               />
-              <Select value={ageGroup} onValueChange={(v) => setAgeGroup(v)}>
+              <Select value={ageGroup} onValueChange={(v) => setAgeGroup(v as AgeGroup)}>
                 <SelectTrigger className="w-32">
                   <SelectValue />
                 </SelectTrigger>
